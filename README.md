@@ -15,8 +15,9 @@ an explainable "Likely Next Target".
 |---|---|---|
 | 1 | Architecture, repo structure, Docker, models, migrations | done |
 | 2 | Synthetic telemetry generator (6 log formats, deterministic attack + benign noise) | done |
-| 3 | Ingestion (JSON/CSV) + normalization | next |
-| 4–9 | Correlation, graph & lateral movement, MITRE, root cause & risk, prediction, APIs | planned |
+| 3 | Ingestion (JSON/CSV), normalization, host resolution, events/hosts APIs | done |
+| 4 | Detection signals + correlation engine → incidents | next |
+| 5–9 | Graph & lateral movement, MITRE, root cause & risk, prediction, incident APIs | planned |
 | 10–12 | React SOC dashboard, AI investigation assistant, testing & demo mode | planned |
 
 ## Quick start (Docker)
@@ -39,8 +40,16 @@ python -m venv .venv && .venv/Scripts/activate    # or: source .venv/bin/activat
 pip install -r requirements-dev.txt
 docker compose up -d db                            # from the repo root
 alembic upgrade head
+python ../scripts/generate_dataset.py              # writes data/generated/*
+python ../scripts/seed_database.py                 # seed inventory + ingest telemetry
 uvicorn app.main:app --reload
 ```
+
+Data flow: `generate_dataset.py` writes deterministic telemetry (6 log formats) to
+`data/generated/`; `seed_database.py` seeds the host/user inventory and ingests the
+events through the normalization layer, resolving hosts and building the
+host-to-host connection projection. Explore the result at
+`http://localhost:8000/docs` (`/api/v1/events`, `/api/v1/hosts`).
 
 Frontend (Node 22+):
 

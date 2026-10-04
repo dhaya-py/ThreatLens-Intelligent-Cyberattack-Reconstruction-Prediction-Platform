@@ -35,7 +35,16 @@ def db(engine: Engine) -> Iterator[Session]:
 
 
 @pytest.fixture
-def client(engine: Engine) -> Iterator[TestClient]:
+def seeded_db(db: Session) -> Session:
+    """A session with inventory (hosts/users) seeded, ready for ingestion."""
+    from app.services.seed import seed_inventory
+
+    seed_inventory(db)
+    db.commit()
+    return db
+
+
+def _client_for(engine: Engine) -> Iterator[TestClient]:
     factory = sessionmaker(bind=engine, expire_on_commit=False)
 
     def _override() -> Iterator[Session]:
@@ -49,6 +58,22 @@ def client(engine: Engine) -> Iterator[TestClient]:
     with TestClient(app) as test_client:
         yield test_client
     app.dependency_overrides.clear()
+
+
+@pytest.fixture
+def client(engine: Engine) -> Iterator[TestClient]:
+    yield from _client_for(engine)
+
+
+@pytest.fixture
+def seeded_client(engine: Engine) -> Iterator[TestClient]:
+    """A TestClient whose database already has inventory seeded."""
+    from app.services.seed import seed_inventory
+
+    with sessionmaker(bind=engine, expire_on_commit=False)() as setup:
+        seed_inventory(setup)
+        setup.commit()
+    yield from _client_for(engine)
 
 
 @pytest.fixture

@@ -9,6 +9,7 @@ class EventType(StrEnum):
     DNS = "dns"
     NETWORK = "network"
     FILE = "file"
+    DATABASE = "database"
 
 
 class EventOutcome(StrEnum):

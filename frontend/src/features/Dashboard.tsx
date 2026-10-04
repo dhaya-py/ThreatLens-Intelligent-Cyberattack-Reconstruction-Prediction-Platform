@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import { AssistantPanel } from "../components/AssistantPanel";
 import { AttackGraph, type GraphSelection } from "../components/AttackGraph";
 import { DetailDrawer } from "../components/DetailDrawer";
 import { IncidentHeader } from "../components/IncidentHeader";
@@ -47,15 +48,19 @@ export function Dashboard({ bundle }: { bundle: IncidentBundle }) {
       </div>
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-        <div className="h-[360px]">
+        <div className="h-[380px]">
           <Timeline steps={timeline} onSelectHost={selectHost} />
         </div>
-        <div className="h-[360px]">
+        <div className="h-[380px]">
           <RiskPanel hosts={risk.hosts} onSelectHost={selectHost} />
         </div>
-        <div className="h-[360px]">
-          <MitrePanel techniques={mitre.techniques} />
+        <div className="h-[380px]">
+          <AssistantPanel incidentId={detail.id} />
         </div>
+      </div>
+
+      <div className="h-[260px]">
+        <MitrePanel techniques={mitre.techniques} />
       </div>
     </div>
   );

@@ -49,7 +49,9 @@ class AnthropicProvider:
                 system=system,
                 messages=[{"role": "user", "content": user}],
             )
-            parts = [block.text for block in message.content if getattr(block, "type", "") == "text"]
+            parts = [
+                block.text for block in message.content if getattr(block, "type", "") == "text"
+            ]
             text = "\n".join(parts).strip()
             return text or None
         except Exception:  # noqa: BLE001 - fail soft to the deterministic responder

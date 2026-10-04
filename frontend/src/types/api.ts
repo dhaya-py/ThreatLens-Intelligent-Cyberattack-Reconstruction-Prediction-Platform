@@ -131,3 +131,10 @@ export interface Prediction {
   top: TargetPrediction | null;
   ranking: TargetPrediction[];
 }
+
+export interface InvestigateResponse {
+  answer: string;
+  mode: "llm" | "deterministic";
+  used_evidence: string[];
+  suggested_questions: string[];
+}

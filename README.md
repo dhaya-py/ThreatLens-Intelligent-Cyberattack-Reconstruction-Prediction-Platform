@@ -23,8 +23,8 @@ an explainable "Likely Next Target".
 | 8 | Explainable next-target prediction | done |
 | 9 | Analysis pipeline (persist incidents) + all incident APIs | done |
 | 10 | React SOC dashboard (attack graph, timeline, MITRE, risk, prediction) | done |
-| 11 | AI investigation assistant | next |
-| 12 | Demo mode, end-to-end tests & polish | planned |
+| 11 | AI investigation assistant (evidence-grounded, LLM-optional) | done |
+| 12 | Demo mode, end-to-end tests & polish | next |
 
 ## Quick start (Docker)
 

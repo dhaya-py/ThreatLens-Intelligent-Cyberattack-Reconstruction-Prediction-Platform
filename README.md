@@ -17,8 +17,9 @@ an explainable "Likely Next Target".
 | 2 | Synthetic telemetry generator (6 log formats, deterministic attack + benign noise) | done |
 | 3 | Ingestion (JSON/CSV), normalization, host resolution, events/hosts APIs | done |
 | 4 | Detection signals (14 detectors) + correlation engine → incidents | done |
-| 5 | Attack graph + explicit lateral-movement detection | next |
-| 6–9 | MITRE mapping, root cause & risk, prediction, incident APIs | planned |
+| 5 | Attack graph (typed nodes/edges) + explicit lateral-movement detection | done |
+| 6 | MITRE ATT&CK mapping → attack steps | next |
+| 7–9 | Root cause & risk, prediction, incident APIs | planned |
 | 10–12 | React SOC dashboard, AI investigation assistant, testing & demo mode | planned |
 
 ## Quick start (Docker)

@@ -46,6 +46,7 @@ def from_raw_records(records: Iterable[dict]) -> list[EventView]:
                 source=n.source,
                 host=resolve(n.hostname, n.source_ip),
                 dest_host=resolve(n.destination_hostname, n.destination_ip),
+                source_host=resolve(None, n.source_ip),
                 username=n.username,
                 source_ip=n.source_ip,
                 dest_ip=n.destination_ip,
@@ -63,6 +64,14 @@ def from_raw_records(records: Iterable[dict]) -> list[EventView]:
 
 
 def from_db_events(events: Sequence[SecurityEvent]) -> list[EventView]:
+    # Build an IP -> hostname map from the hosts referenced by these events, so a
+    # move's origin host can be resolved from source_ip.
+    by_ip: dict[str, str] = {}
+    for e in events:
+        for host in (e.host, e.destination_host):
+            if host:
+                by_ip[host.ip_address] = host.hostname
+
     return [
         EventView(
             id=e.id,
@@ -71,6 +80,7 @@ def from_db_events(events: Sequence[SecurityEvent]) -> list[EventView]:
             source=e.source,
             host=e.host.hostname if e.host else None,
             dest_host=e.destination_host.hostname if e.destination_host else None,
+            source_host=by_ip.get(e.source_ip) if e.source_ip else None,
             username=e.username,
             source_ip=e.source_ip,
             dest_ip=e.destination_ip,

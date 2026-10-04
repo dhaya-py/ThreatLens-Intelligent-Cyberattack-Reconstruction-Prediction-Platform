@@ -32,10 +32,10 @@ export default function App() {
     void load();
   }, [load]);
 
-  const runAnalysis = async () => {
+  const loadDemo = async () => {
     setBusy(true);
     try {
-      await api.runAnalysis();
+      await api.loadDemo();
       await load();
     } catch (e) {
       setState({ phase: "error", message: (e as Error).message });
@@ -55,11 +55,11 @@ export default function App() {
             Cyberattack reconstruction &amp; prediction
           </span>
           <button
-            onClick={runAnalysis}
+            onClick={loadDemo}
             disabled={busy}
             className="ml-auto rounded-lg border border-soc-accent/40 bg-soc-accent/10 px-3 py-1.5 text-sm font-medium text-soc-accent hover:bg-soc-accent/20 disabled:opacity-50"
           >
-            {busy ? "Analyzing…" : "Re-run analysis"}
+            {busy ? "Loading…" : "Load demo incident"}
           </button>
         </div>
       </header>
@@ -74,14 +74,17 @@ export default function App() {
         {state.phase === "empty" && (
           <Centered>
             <div className="text-center">
-              <p className="mb-3 text-slate-400">No incident analyzed yet.</p>
+              <p className="mb-3 text-slate-400">No incident loaded yet.</p>
               <button
-                onClick={runAnalysis}
+                onClick={loadDemo}
                 disabled={busy}
                 className="rounded-lg bg-soc-accent px-4 py-2 font-medium text-soc-bg hover:bg-sky-300 disabled:opacity-50"
               >
-                {busy ? "Analyzing…" : "Run analysis"}
+                {busy ? "Loading…" : "Load demo incident"}
               </button>
+              <p className="mt-3 text-xs text-slate-600">
+                Resets, generates and analyzes the synthetic scenario — same result every time.
+              </p>
             </div>
           </Centered>
         )}

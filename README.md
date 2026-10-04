@@ -18,8 +18,9 @@ an explainable "Likely Next Target".
 | 3 | Ingestion (JSON/CSV), normalization, host resolution, events/hosts APIs | done |
 | 4 | Detection signals (14 detectors) + correlation engine → incidents | done |
 | 5 | Attack graph (typed nodes/edges) + explicit lateral-movement detection | done |
-| 6 | MITRE ATT&CK mapping → attack steps | next |
-| 7–9 | Root cause & risk, prediction, incident APIs | planned |
+| 6 | MITRE ATT&CK mapping → ordered attack-step timeline | done |
+| 7 | Root-cause detection + transparent risk engine | next |
+| 8–9 | Next-target prediction, incident APIs + analysis pipeline | planned |
 | 10–12 | React SOC dashboard, AI investigation assistant, testing & demo mode | planned |
 
 ## Quick start (Docker)

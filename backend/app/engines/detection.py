@@ -36,6 +36,10 @@ _CRED_FILE = re.compile(r"pass|cred|secret|unattend|\.kdbx|config.*\.xml|\.ps1xm
 _REMOTE_EXEC_PARENTS = {"wsmprovhost.exe", "psexesvc.exe", "wmiprvse.exe", "mmc.exe"}
 _SERVICE_EXEC_IMAGES = {"psexesvc.exe", "paexec.exe"}
 _REMOTE_PROTOCOLS = {"smb", "rdp", "winrm", "ssh", "rpc", "wmi"}
+_SENSITIVE_OBJECT = re.compile(
+    r"customer|card|ssn|salary|payroll|account|credential|secret", re.IGNORECASE
+)
+DB_SENSITIVE_ROWS = 1000
 
 
 @dataclass
@@ -170,6 +174,18 @@ def _detect_content(events, emit) -> None:
                 "Initial Access",
                 "T1078",
             )
+
+        if e.event_type == EventType.DATABASE:
+            rows = e.metadata.get("affected_rows") or 0
+            obj = str(e.metadata.get("object") or "")
+            if rows >= DB_SENSITIVE_ROWS or _SENSITIVE_OBJECT.search(obj):
+                emit(
+                    e,
+                    "sensitive_db_access",
+                    f"bulk/sensitive data read: {obj} ({rows} rows)",
+                    "Collection",
+                    "T1213",
+                )
 
 
 # --- windowed / stateful detectors ------------------------------------------------

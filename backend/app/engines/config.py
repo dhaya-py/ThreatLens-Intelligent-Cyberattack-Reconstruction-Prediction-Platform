@@ -38,6 +38,7 @@ class DetectionConfig:
             "admin_share_access": 0.70,
             "credential_file_access": 0.70,
             "suspicious_dns": 0.50,
+            "sensitive_db_access": 0.65,
         }
     )
 

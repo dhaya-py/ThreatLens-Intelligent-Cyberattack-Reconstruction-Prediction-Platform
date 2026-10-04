@@ -3,12 +3,15 @@ __pycache__/
 *.pyc
 .venv/
 .venv312/
+venv/
+env/
 .pytest_cache/
 .ruff_cache/
 
 # Node
 node_modules/
 dist/
+*.tsbuildinfo
 
 # Env / local
 .env

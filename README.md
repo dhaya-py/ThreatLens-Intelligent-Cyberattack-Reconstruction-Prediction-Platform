@@ -22,8 +22,9 @@ an explainable "Likely Next Target".
 | 7 | Root-cause detection + transparent risk engine | done |
 | 8 | Explainable next-target prediction | done |
 | 9 | Analysis pipeline (persist incidents) + all incident APIs | done |
-| 10 | React SOC dashboard | next |
-| 11–12 | AI investigation assistant, demo mode & polish | planned |
+| 10 | React SOC dashboard (attack graph, timeline, MITRE, risk, prediction) | done |
+| 11 | AI investigation assistant | next |
+| 12 | Demo mode, end-to-end tests & polish | planned |
 
 ## Quick start (Docker)
 

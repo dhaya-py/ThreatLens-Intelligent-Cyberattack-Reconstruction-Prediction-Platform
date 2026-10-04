@@ -21,8 +21,9 @@ an explainable "Likely Next Target".
 | 6 | MITRE ATT&CK mapping → ordered attack-step timeline | done |
 | 7 | Root-cause detection + transparent risk engine | done |
 | 8 | Explainable next-target prediction | done |
-| 9 | Analysis pipeline (persist incidents) + all incident APIs | next |
-| 10–12 | React SOC dashboard, AI investigation assistant, testing & demo mode | planned |
+| 9 | Analysis pipeline (persist incidents) + all incident APIs | done |
+| 10 | React SOC dashboard | next |
+| 11–12 | AI investigation assistant, demo mode & polish | planned |
 
 ## Quick start (Docker)
 

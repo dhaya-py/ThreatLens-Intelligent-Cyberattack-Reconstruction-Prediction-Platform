@@ -1,8 +1,10 @@
 from fastapi import APIRouter
 
-from app.api.v1.routes import events, health, hosts
+from app.api.v1.routes import events, health, hosts, incidents
 
 api_router = APIRouter(prefix="/api/v1")
 api_router.include_router(health.router)
 api_router.include_router(events.router)
 api_router.include_router(hosts.router)
+api_router.include_router(incidents.router)
+api_router.include_router(incidents.analysis_router)
